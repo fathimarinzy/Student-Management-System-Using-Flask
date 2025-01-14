@@ -14,6 +14,7 @@ def home():
 def register():
     return render_template("register.html")
 
+# Studentregister
 @app.route('/studentreg')
 def studentreg():
     return render_template("studentreg.html")
@@ -35,14 +36,13 @@ def savestd():
         cursor1.execute("insert into Login(username,password,usertype,status)values(?,?,?,?)",(u,p,s,0))
         cursor1.execute("select max(loginid) from Login")
         data=cursor1.fetchone()
-       
         cursor1.execute("insert into Student(firstname,lastname,email,phone_number,address,guardian,logid)values(?,?,?,?,?,?,?) ",(f,l,e,ph,a,g,data[0]))
 
         con.commit()
     return render_template("login.html", message="Registration successful!")    
 
 
-       
+# Teacher register
 
 @app.route('/teacherreg')
 def teacherreg():
@@ -71,6 +71,8 @@ def savetchr():
     return render_template("login.html", message="Teacher registered successfully!")
 
 
+# Login
+
 @app.route('/login')
 def login():
     return render_template("login.html")
@@ -85,9 +87,11 @@ def logincheck():
         cursor1=con.cursor()
         cursor1.execute("select * from Login where username=? and password=?",(u,p))
         data=cursor1.fetchone()
+        con.close()
         print(data)
         if data:
             session["logid"]=data["loginid"]
+            session["usertype"] = data["usertype"] 
             if data['usertype']=='teacher' and data['status']==1 :
                 return render_template("teacherhome.html")
             elif data['usertype']=='student' and  data['status']==1:
@@ -101,7 +105,8 @@ def logincheck():
                 
     return render_template("login.html")
 
-
+# Admin
+# --------------------------------
 @app.route('/viewstd')
 def viewstd():
     con=sqlite3.connect("studentmanagement.db")
@@ -201,7 +206,8 @@ def deltchr(id):
     con.commit()
     return redirect(url_for('deletetchr'))
 
-
+# Student
+# --------------------------------
 @app.route('/tchrlist')
 def tchrlist():
     con=sqlite3.connect("studentmanagement.db")
@@ -211,14 +217,93 @@ def tchrlist():
     data=cursor1.fetchall()
     return render_template("tchrlist.html",view=data)
 
+
 @app.route('/editstd')
 def editstd():
-    return render_template("editstd.html")
+     if "logid" in session and session.get("usertype")=="student":
+        user=session["logid"]  
+        con=sqlite3.connect("studentmanagement.db")
+        con.row_factory=sqlite3.Row
+        cursor=con.cursor()
+        cursor.execute("SELECT * FROM student WHERE logid = ?", (user,))
+        data=cursor.fetchone()
+        con.close()
+        return render_template("editstd.html", student=data)
 
 
+@app.route("/updstd", methods=['POST'])
+def updstd():
+    if "logid" in session and session.get("usertype")=="student":
+        user = session["logid"] 
+        f = request.form['firstname']
+        l = request.form['lastname']
+        a = request.form['address']
+        ph = request.form['phone_number']
+        e = request.form['email']
+        g = request.form['guardian']
+        con = sqlite3.connect("studentmanagement.db")
+        cursor1=con.cursor()
+        cursor1.execute("UPDATE Student SET firstname =?,lastname =?,address =?,phone_number =?,email =?,guardian =? WHERE logid =?"
+        , (f,l,a,ph,e,g,user))
+        con.commit()
+        con.close()
+    return render_template("studenthome.html") 
 
 
+@app.route("/stdlogout")
+def stdlogout():
+    session.clear()  
+    return redirect(url_for("home"))
 
+# Teacher
+# --------------------------------
+@app.route('/stdlist')
+def stdlist():
+    con=sqlite3.connect("studentmanagement.db")
+    con.row_factory=sqlite3.Row
+    cursor1=con.cursor()
+    cursor1.execute("select * from Student")
+    data=cursor1.fetchall()
+    return render_template("stdlist.html",view=data)
+
+
+@app.route('/edittchr')
+def edittchr():
+     if "logid" in session and session.get("usertype")=="teacher":
+        user=session["logid"]  
+        con=sqlite3.connect("studentmanagement.db")
+        con.row_factory=sqlite3.Row
+        cursor=con.cursor()
+        cursor.execute("SELECT * FROM Teacher WHERE logid = ?", (user,))
+        data=cursor.fetchone()
+        con.close()
+        return render_template("edittchr.html", student=data)
+
+
+@app.route("/updtchr", methods=['POST'])
+def updtchr():
+    if "logid" in session and session.get("usertype")=="teacher":
+        user = session["logid"] 
+        f = request.form['firstname']
+        l = request.form['lastname']
+        a = request.form['address']
+        ph = request.form['phone_number']
+        e = request.form['email']
+        s=request.form['salary']
+        ex=request.form['experience']
+        con = sqlite3.connect("studentmanagement.db")
+        cursor1=con.cursor()
+        cursor1.execute("UPDATE Teacher SET firstname =?,lastname =?,address =?,phone_number =?,email =?,salary=?,experience=? WHERE logid =?"
+        , (f,l,a,ph,e,s,ex,user))
+        con.commit()
+        con.close()
+    return render_template("teacherhome.html") 
+
+
+@app.route("/tchrlogout")
+def tchrlogout():
+    session.clear()  
+    return redirect(url_for("home"))
 
 
 

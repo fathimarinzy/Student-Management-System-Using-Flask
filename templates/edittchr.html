@@ -7,13 +7,14 @@
 </head>
 <body>
     <h2>Edit Profile</h2>
-    <form action="/updstd" method="POST">
+    <form action="/updtchr" method="POST">
         <input type="text" name="firstname" value="{{ student.firstname }}" placeholder="First Name"><br><br>
         <input type="text" name="lastname" value="{{ student.lastname }}"  placeholder="Last Name"><br><br>
         <input type="email" name="email" value="{{ student.email }}"  placeholder="Email"><br><br>
         <input type="text" name="address" value="{{ student.address }}" placeholder="Address"><br><br>
         <input type="number" name="phone_number" value="{{ student.phone_number }}" placeholder="Phone Number"><br><br>
-        <input type="text" name="guardian" value="{{ student.guardian }}"  placeholder="Guardian"><br><br>
+        <input type="number" name="salary" value="{{ student.salary }}" placeholder="Salary"><br><br>
+        <input type="number" name="experience" value="{{ student.experience }}" placeholder="Experience"><br><br>
         <input type="submit" value="Update ">
     </form>
 </body>
