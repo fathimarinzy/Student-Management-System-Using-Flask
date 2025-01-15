@@ -4,18 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <style>
+        :root {
+          --accent-color: #71c55d;
+          --background-color: #ffffff;
+          --gray-light: #f5f6f8;
+          --gray: #8f8f8f;
+        }
+    
+        html, body {
+          height: 100%;
+          margin: 0;
+          font-family: 'Roboto', Helvetica, Arial, sans-serif;
+        }
+    
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          position: relative;
+          background: var(--background-color);
+        }
+    
+        .login-form {
+          width: 500px;
+          max-width: 900px;
+          height: 450px;
+          padding: 2em;
+          background: linear-gradient(to bottom, #F5FFF5, rgba(0, 0, 0, 0.1));
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          text-align: center;
+
+          display: flex; 
+          flex-direction: column; 
+          justify-content: center; 
+          align-items: center; 
+
+        }
+    
+        .lf--input {
+          width: 70%;
+          padding: 10px;
+          margin-bottom: 1em;
+          border: 1px solid var(--gray-light);
+          border-radius: 5px;
+        }
+    
+        .lf--submit {
+          display: flex; 
+
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 1em;
+          width: 95px;
+          height: 45px;
+          background: var(--accent-color);
+          border: 0;
+          color: #fff;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: 15;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+          border-radius: 5px;
+          margin: 0 auto; 
+          margin-top: 1em;
+        }
+    
+        .lf--submit:focus {
+          outline: none;
+          transform: scale(1.05);
+          transition: transform 0.15s ease;
+        }
+      </style>
 </head>
 <body>
-    <h2>Edit Profile</h2>
-    <form action="/updtchr" method="POST">
-        <input type="text" name="firstname" value="{{ student.firstname }}" placeholder="First Name"><br><br>
-        <input type="text" name="lastname" value="{{ student.lastname }}"  placeholder="Last Name"><br><br>
-        <input type="email" name="email" value="{{ student.email }}"  placeholder="Email"><br><br>
-        <input type="text" name="address" value="{{ student.address }}" placeholder="Address"><br><br>
-        <input type="number" name="phone_number" value="{{ student.phone_number }}" placeholder="Phone Number"><br><br>
-        <input type="number" name="salary" value="{{ student.salary }}" placeholder="Salary"><br><br>
-        <input type="number" name="experience" value="{{ student.experience }}" placeholder="Experience"><br><br>
-        <input type="submit" value="Update ">
+
+    <form class="login-form" action="/updtchr" method="POST">
+        <input class="lf--input" type="text" name="firstname" value="{{ student.firstname }}" placeholder="First Name">
+        <input class="lf--input" type="text" name="lastname" value="{{ student.lastname }}"  placeholder="Last Name">
+        <input class="lf--input" type="email" name="email" value="{{ student.email }}"  placeholder="Email">
+        <input class="lf--input" type="text" name="address" value="{{ student.address }}" placeholder="Address">
+        <input class="lf--input" type="number" name="phone_number" value="{{ student.phone_number }}" placeholder="Phone Number">
+        <input class="lf--input" type="number" name="salary" value="{{ student.salary }}" placeholder="Salary">
+        <input class="lf--input" type="number" name="experience" value="{{ student.experience }}" placeholder="Experience">
+        <input class="lf--submit" type="submit" value="Update ">
     </form>
 </body>
 </html>

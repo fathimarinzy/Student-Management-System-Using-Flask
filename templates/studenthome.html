@@ -1,3 +1,5 @@
+{% extends 'index.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +8,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>WELCOME</h2>
+    {% block content1 %}
     <a href="/tchrlist"> Teachers List</a>
     <a href="/editstd">Edit Profile</a>
     <a href="/stdlogout">Logout</a>
+    {% endblock content1 %}
     
+
+    {% block content2 %}
+    <h2>Welcome Student,</h2>
+    {% endblock content2 %}
+
 </body>
 </html>

@@ -4,27 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        :root {
+          --accent-color: #71c55d;
+          --secondary-color: #f4f4f4;
+          --text-color: #333;
+          --table-header-color: #4CAF50;
+          --table-header-text: #fff;
+        }
+
+        html, body {
+          margin: 0;
+          padding: 0;
+          font-family: 'Roboto', Helvetica, Arial, sans-serif;
+          background: #f9f9f9;
+          color: var(--text-color);
+        }
+
+        body {
+          /* display: flex;
+          align-items: center;
+          justify-content: center; */
+          flex-direction: column;
+          min-height: 100vh;
+        }
+
+        h1 {
+          text-align:center ;
+          margin-bottom: 1em;
+          font-size: 2em;
+          color: var(--accent-color);
+        }
+
+        .table-container {
+          width: 90%;
+          max-width: 1200px;
+          background: var(--secondary-color);
+          padding: 20px;
+          margin: 1em auto;
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 0 auto;
+          text-align: left;
+        }
+
+        th, td {
+          padding: 12px 15px;
+          border: 1px solid #ddd;
+        }
+
+        th {
+          background: var(--table-header-color);
+          color: var(--table-header-text);
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        tr:nth-child(even) {
+          background: #f2f2f2;
+        }
+
+        tr:hover {
+          background: #d9f9d9;
+        }
+
+        td {
+          color: #555;
+        }
+    </style>
 </head>
 <body>
-    <table border="2">
-        <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            
-        </tr>
-        {% for i in view %} 
-        <tr>
-            <td>{{i.firstname}}</td>
-            <td>{{i.lastname}}</td>
-            <td>{{i.email}}</td>
-            <td>{{i.phone_number}}</td>
-            <td>{{i.address}}</td>
-
-        </tr>
-        {% endfor %}
-    </table>
+    <h1>Teachers List</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+               {% for i in view %} 
+                <tr>
+                    <td>{{i.firstname}}</td>
+                    <td>{{i.lastname}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.phone_number}}</td>
+                    <td>{{i.address}}</td>
+                </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+ 
 </body>
 </html>

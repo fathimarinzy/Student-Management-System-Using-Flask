@@ -4,12 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        :root {
+          --accent-color: #71c55d;
+          --background-color: #ffffff;
+          --gray-light: #f5f6f8;
+          --gray: #8f8f8f;
+        }
+    
+        html, body {
+          height: 100%;
+          margin: 0;
+          font-family: 'Roboto', Helvetica, Arial, sans-serif;
+        }
+    
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          position: relative;
+          background: var(--background-color);
+        }
+    
+        .login-form {
+          width: 500px;
+          max-width: 900px;
+          height: 300px;
+          padding: 2em;
+          background: linear-gradient(to bottom, #F5FFF5, rgba(0, 0, 0, 0.1));
+          border-radius: 10px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+          text-align: center;
+
+          display: flex; 
+          flex-direction: column; 
+          justify-content: center; 
+          align-items: center; /
+
+        }
+    
+        .lf--input {
+          width: 50%;
+          padding: 10px;
+          margin-bottom: 1em;
+          border: 1px solid var(--gray-light);
+          border-radius: 5px;
+        }
+    
+        .lf--submit {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 1em;
+          width: 95px;
+          height: 45px;
+          background: var(--accent-color);
+          border: 0;
+          color: #fff;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: 15;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+          border-radius: 5px;
+          margin: 0 auto; 
+          margin-top: 1em;
+        }
+    
+        .lf--submit:focus {
+          outline: none;
+          transform: scale(1.05);
+          transition: transform 0.15s ease;
+        }
+      </style>
 </head>
 <body>
-    <form action="\logins" method="post">
-        <input type="text" placeholder="Username" name="username"><br><br>
-        <input type="password" placeholder="Password" name="password"><br><br>
-        <input type="submit" value="Login">
+    <form class="login-form" action="\logins" method="post">
+        <input class="lf--input" type="text" placeholder="Username" name="username"><br><br>
+        <input class="lf--input" type="password" placeholder="Password" name="password"><br><br>
+        <input class="lf--submit" type="submit" value="Login">
 </form>
 
 </body>
